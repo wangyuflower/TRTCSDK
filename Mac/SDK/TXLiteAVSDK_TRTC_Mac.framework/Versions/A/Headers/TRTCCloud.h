@@ -3,7 +3,7 @@
  * 
  * Function: 腾讯云视频通话功能的主要接口类
  *
- * Version: 6.2.7006
+ * Version: 6.3.7031
  */
 
 #import <Foundation/Foundation.h>
@@ -34,8 +34,6 @@
 /// 设置驱动回调的队列，默认会采用 Main Queue。
 /// 也就是说，如果您不指定 delegateQueue，那么直接在 TRTCCloudDelegate 的回调函数中操作 UI 界面将是安全的
 @property (nonatomic, strong) dispatch_queue_t delegateQueue;
-
-
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -284,7 +282,21 @@
  * @param smoothLevel  灵敏度，[0,10], 数字越大，波动越灵敏
  */
 - (void)enableAudioVolumeEvaluation:(NSUInteger)interval smooth:(NSInteger)smoothLevel;
+
+/**
+ * 3.8 设置音频数据回调
+ *
+ *  设置此方法，SDK内部会把音频数据（PCM格式）回调出来，包括 ：
+ *              1.本机采集到的音频数据
+ *              2.混音前的每一路远程用户的音频数据
+ *              3.各路声音数据混合后送入喇叭播放的音频数据
+ *
+ * @param delegate 音频数据回调， delegate = nil 则停止回调数据
+ */
+- (void)setAudioFrameDelegate:(id<TRTCAudioFrameDelegate>)delegate;
+
 /// @}
+ 
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -630,8 +642,22 @@
  */
 - (int)setRemoteVideoRenderDelegate:(NSString*)userId delegate:(id<TRTCVideoRenderDelegate>)delegate pixelFormat:(TRTCVideoPixelFormat)pixelFormat bufferType:(TRTCVideoBufferType)bufferType;
 
+#if TARGET_OS_IPHONE
 /**
- * 8.6 调用实验性API接口
+ * 8.5 启用音频自定义采集模式（iOS），即放弃 SDK 原来的音频采集流程，改用 sendCustomAudioData 向 SDK 塞入自己采集的音频
+ * @param enable 是否启用 true:启用  false:关闭
+ */
+- (void)enableCustomAudioCapture:(BOOL)enable;
+
+/**
+ * 8.6 发送自定义的音频数据 (iOS)
+ * @param frame 音频数据.
+ */
+- (void)sendCustomAudioData:(TRTCAudioFrame *)frame;
+#endif
+
+/**
+ * 8.7 调用实验性API接口
  *
  * @note 该接口用于调用一些实验性功能
  * @param jsonStr 接口及参数描述的json字符串

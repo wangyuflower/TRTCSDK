@@ -213,8 +213,10 @@ typedef NS_ENUM(NSInteger, TRTCVoiceChangerType) {
  */
 typedef NS_ENUM(NSInteger, TRTCVideoPixelFormat) {
     TRTCVideoPixelFormat_Unknown    = 0,
-    TRTCVideoPixelFormat_I420       = 1,    // YUV I420
+    TRTCVideoPixelFormat_I420       = 1,    // YUV420P I420
     TRTCVideoPixelFormat_Texture_2D = 2,    // OpenGL 2D 纹理
+    TRTCVideoPixelFormat_NV12       = 5,    // YUV420SP NV12
+    TRTCVideoPixelFormat_32BGRA     = 6,    // BGRA8888
 };
 
 /**

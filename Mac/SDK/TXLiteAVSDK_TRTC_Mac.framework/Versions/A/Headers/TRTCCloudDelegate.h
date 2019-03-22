@@ -400,4 +400,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+/////////////////////////////////////////////////////////////////////////////////
+//
+//                      （十三）音频数据回调
+//
+/////////////////////////////////////////////////////////////////////////////////
+/**
+ * 音频数据回调
+ * @warning 注意！！！ 回调函数是在SDK内部线程同步抛出来的，请不要做耗时操作
+ * 提示：请按需定义相关函数实现，减少不必要的性能损耗
+ */
+@protocol TRTCAudioFrameDelegate <NSObject>
+@optional
+/**
+ * 本机采集到的音频数据回调
+ * @see TRTCAudioFrame
+ * @note 此接口回调的音频数据不可修改
+ */
+- (void) onCapturedAudioFrame:(TRTCAudioFrame *)frame;
+
+/**
+ *  混音前的每一路远程用户的音频数据（比如您要对某一路的语音进行文字转换，必须要使用这里的数据，混音后的数据不适合用于语音识别）
+ * @param frame      音频数据
+ * @param userId     用户标识
+ * @see TRTCAudioFrame
+ * @note 此接口回调的音频数据不可修改
+ */
+- (void) onPlayAudioFrame:(TRTCAudioFrame *)frame userId:(NSString *)userId;
+
+/**
+ * 各路音频数据混合后送入喇叭播放的音频数据
+ * @see TRTCAudioFrame
+ * @note 此接口回调的音频数据不可修改
+ */
+- (void) onMixedPlayAudioFrame:(TRTCAudioFrame *)frame;
+
+@end
+
+
 NS_ASSUME_NONNULL_END

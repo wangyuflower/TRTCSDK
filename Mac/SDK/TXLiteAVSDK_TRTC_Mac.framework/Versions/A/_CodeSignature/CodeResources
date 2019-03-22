@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		LUyV80uSclGJb3qJyCfTrb7SYcc=
+		y0iK9YQSg8alTsSMHq1vP/sk9ag=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -15,33 +15,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yfVivveEc+hbQnTmOtT1s2EbBBc=
+			HnMDWpti7duc00vKiIp2B7MCWEw=
 			</data>
 			<key>hash2</key>
 			<data>
-			SZP++UtUiT9OsrDwpwZX6SXotm0MM+meGaxV58c8FgI=
+			//nXJNP9MVB+xDgV5xNslf2+9IYZ6BSoh/dZVjPLsXE=
 			</data>
 		</dict>
 		<key>Headers/TRTCCloudDef.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			44nQBcDOmzWfitguEdwF+LfpxQM=
+			4Wh5X1tzxiaHe6OPQDTlcScV90s=
 			</data>
 			<key>hash2</key>
 			<data>
-			+KtSfWIdc/3VwMOdosXeZR95oZMCCc11TtZMTGqbXY0=
+			u3Ka53aQNpCIjObGbjCmjzN0qkzq0BY4aIwL6p0XW6A=
 			</data>
 		</dict>
 		<key>Headers/TRTCCloudDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			9hbC+pjnZJLz1oWjPrpKIScWLk8=
+			XEhL4cn5bxNL4ke2edOuYH076gk=
 			</data>
 			<key>hash2</key>
 			<data>
-			3EB3EQGevNH7bTAZCRBerGuvYtxtWYsuUMKuFHg8xkg=
+			Rv+5Envqj2FTQbkKHGdaXxaPlXvYA1sGwY2MSigV0YE=
 			</data>
 		</dict>
 		<key>Headers/TRTCStatistics.h</key>
@@ -147,11 +147,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			R7EqUGmloZNcHaJUG4CYQhlqWIQ=
+			CV9AzgBHlTU5YGOLMDeie5R9qAY=
 			</data>
 			<key>hash2</key>
 			<data>
-			UAzKVPVh64zzzdVdTnJmn/dzw+835DlpXB7PxMoULjs=
+			FviT3t7aiMEOsPoxQTLxnQ6stV/cGmqF32cWxpvQiOQ=
 			</data>
 		</dict>
 		<key>Headers/TXLiveRecordListener.h</key>
@@ -224,11 +224,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LUyV80uSclGJb3qJyCfTrb7SYcc=
+			y0iK9YQSg8alTsSMHq1vP/sk9ag=
 			</data>
 			<key>hash2</key>
 			<data>
-			NJC6JgXuAcm/I/bD2N5GIFz1kXCRV6QtEFkmqvPZhCY=
+			tccxbDP3PNygXDOC1j1AjAwKwISp1d511v9KglzQ0yo=
 			</data>
 		</dict>
 	</dict>

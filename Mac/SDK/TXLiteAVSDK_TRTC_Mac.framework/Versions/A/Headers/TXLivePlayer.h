@@ -19,20 +19,20 @@ typedef NS_ENUM(NSInteger, TX_Enum_PlayType) {
     /// RTMP直播
     PLAY_TYPE_LIVE_RTMP = 0,
     /// FLV直播
-    PLAY_TYPE_LIVE_FLV,
+    PLAY_TYPE_LIVE_FLV = 1,
 #if TARGET_OS_IPHONE
     /// FLV点播
-    PLAY_TYPE_VOD_FLV,
+    PLAY_TYPE_VOD_FLV = 2,
     /// HLS点播
-    PLAY_TYPE_VOD_HLS,
+    PLAY_TYPE_VOD_HLS = 3,
     /// MP4点播
-    PLAY_TYPE_VOD_MP4,
+    PLAY_TYPE_VOD_MP4 = 4,
 #endif
     /// RTMP直播加速播放
-    PLAY_TYPE_LIVE_RTMP_ACC,
+    PLAY_TYPE_LIVE_RTMP_ACC = 5,
 #if TARGET_OS_IPHONE
     /// 本地视频文件
-    PLAY_TYPE_LOCAL_VIDEO,
+    PLAY_TYPE_LOCAL_VIDEO = 6,
 #endif
 };
 
