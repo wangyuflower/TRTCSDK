@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		y0iK9YQSg8alTsSMHq1vP/sk9ag=
+		LUyV80uSclGJb3qJyCfTrb7SYcc=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -15,44 +15,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			HnMDWpti7duc00vKiIp2B7MCWEw=
+			12cmkT+QLc+BS6OSNetqt2ORN5g=
 			</data>
 			<key>hash2</key>
 			<data>
-			//nXJNP9MVB+xDgV5xNslf2+9IYZ6BSoh/dZVjPLsXE=
+			b2yFKBW2PsOLTxyu4AWxDZXXtm/rmzjujKqc1yOWVAs=
 			</data>
 		</dict>
 		<key>Headers/TRTCCloudDef.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			4Wh5X1tzxiaHe6OPQDTlcScV90s=
+			H4+IB5kbitopYjAUFZHkoh2zo38=
 			</data>
 			<key>hash2</key>
 			<data>
-			u3Ka53aQNpCIjObGbjCmjzN0qkzq0BY4aIwL6p0XW6A=
+			jozQWmXTK/j2kQLxiQHK9r0vuX6C/48egLQrG1RoRMk=
 			</data>
 		</dict>
 		<key>Headers/TRTCCloudDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			XEhL4cn5bxNL4ke2edOuYH076gk=
+			5jv1Zm9l0rip7aYpNxxJbl1qWik=
 			</data>
 			<key>hash2</key>
 			<data>
-			Rv+5Envqj2FTQbkKHGdaXxaPlXvYA1sGwY2MSigV0YE=
+			SZYnyZNDQFr0EPoS2eJzp95gPVgqP0ZOUYZ8vQkoCg4=
 			</data>
 		</dict>
 		<key>Headers/TRTCStatistics.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			oITbMDT2NZSK64k/f3AFRhEqdLQ=
+			qoh48ko0lxZklnusgeRuJ9fTf3g=
 			</data>
 			<key>hash2</key>
 			<data>
-			6MlVjnKy3yQwijWpRg0xzsGd8VkgqtdSZJcYl3s6o/U=
+			XTHt5IGGQW6UEZQBx623A++9KLlfJB2FdG2oek3S1lg=
 			</data>
 		</dict>
 		<key>Headers/TXAudioCustomProcessDelegate.h</key>
@@ -224,11 +224,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			y0iK9YQSg8alTsSMHq1vP/sk9ag=
+			LUyV80uSclGJb3qJyCfTrb7SYcc=
 			</data>
 			<key>hash2</key>
 			<data>
-			tccxbDP3PNygXDOC1j1AjAwKwISp1d511v9KglzQ0yo=
+			NJC6JgXuAcm/I/bD2N5GIFz1kXCRV6QtEFkmqvPZhCY=
 			</data>
 		</dict>
 	</dict>

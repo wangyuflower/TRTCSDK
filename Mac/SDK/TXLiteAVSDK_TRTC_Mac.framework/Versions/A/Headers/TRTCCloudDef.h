@@ -214,7 +214,6 @@ typedef NS_ENUM(NSInteger, TRTCVoiceChangerType) {
 typedef NS_ENUM(NSInteger, TRTCVideoPixelFormat) {
     TRTCVideoPixelFormat_Unknown    = 0,
     TRTCVideoPixelFormat_I420       = 1,    // YUV420P I420
-    TRTCVideoPixelFormat_Texture_2D = 2,    // OpenGL 2D 纹理
     TRTCVideoPixelFormat_NV12       = 5,    // YUV420SP NV12
     TRTCVideoPixelFormat_32BGRA     = 6,    // BGRA8888
 };
@@ -228,8 +227,6 @@ typedef NS_ENUM(NSInteger, TRTCVideoBufferType) {
     TRTCVideoBufferType_PixelBuffer     = 1,
     // 经过SDK修正后的PixelBuffer数据，经过了一次内存整理，没有孔隙，更容易使用，兼容性更好   
     TRTCVideoBufferType_NSData          = 2,    //NSData
-    // 直接操作纹理ID，性能最好，画质损失最少
-    TRTCVideoBufferType_Texture         = 3,    // 对应纹理ID
 };
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -279,8 +276,8 @@ typedef NS_ENUM(NSInteger, TRTCVideoBufferType) {
 
 /// 视频分辨率
 ///
-/// @note 您在 TRTCVideoResolution 只能找到横屏模式的分辨率，比如： 640x360 这样的分辨率
-///       如果想要使用竖屏分辨率，请指定 resMode 为 Portrait，比如：640x360 + Portrait = 360x640
+/// @note 您在 TRTCVideoResolution 只能找到横屏模式的分辨率，比如： 640x360 这样的分辨率。
+///       如果想要使用竖屏分辨率，请指定 resMode 为 Portrait，比如：640x360 + Portrait = 360x640。
 @property (nonatomic, assign) TRTCVideoResolution videoResolution;
 
 /// 分辨率模式（横屏分辨率 - 竖屏分辨率）
@@ -290,8 +287,8 @@ typedef NS_ENUM(NSInteger, TRTCVideoBufferType) {
 
 /// 视频采集帧率，推荐设置为 15fps 或 20fps，10fps以下会有明显的卡顿感，20fps以上则没有必要
 ///
-/// @note 很多 Android 手机的前置摄像头并不支持 15fps 以上的采集帧率
-///       部分过于突出美颜功能的 Android 手机前置摄像头的采集帧率可能低于 10fps
+/// @note 很多 Android 手机的前置摄像头并不支持 15fps 以上的采集帧率。
+///       部分过于突出美颜功能的 Android 手机前置摄像头的采集帧率可能低于10fps。
 @property (nonatomic, assign) int videoFps;
 
 /// 视频上行码率
@@ -314,14 +311,14 @@ typedef NS_ENUM(NSInteger, TRTCVideoBufferType) {
 
 /// 弱网下是“保清晰”还是“保流畅”
 ///
-/// 弱网下保流畅 - 在遭遇弱网环境时，画面会变得模糊，且会有较多马赛克，但可以保持流畅不卡顿
-/// 弱网下保清晰 - 在遭遇弱网环境时，画面会尽可能保持清晰，但可能会更容易出现卡顿
+/// - 弱网下保流畅： 在遭遇弱网环境时，画面会变得模糊，且会有较多马赛克，但可以保持流畅不卡顿
+/// - 弱网下保清晰： 在遭遇弱网环境时，画面会尽可能保持清晰，但可能会更容易出现卡顿
 @property (nonatomic, assign) TRTCVideoQosPreference preference;
 
 /// 视频分辨率（云端控制 - 客户端控制）
 ///
-/// Client 模式：客户端控制模式，用于SDK开发内部调试，客户请勿使用
-/// Server 模式（默认）：云端控制模式，若没有特殊原因，请直接使用该模式
+/// - Client 模式：客户端控制模式，用于SDK开发内部调试，客户请勿使用
+/// - Server 模式（默认）：云端控制模式，若没有特殊原因，请直接使用该模式
 @property (nonatomic, assign) TRTCQosControlMode controlMode;
 
 @end
@@ -334,21 +331,23 @@ typedef NS_ENUM(NSInteger, TRTCVideoBufferType) {
 //
 /////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
+/// 语音音量的评估大小
 @interface TRTCVolumeInfo : NSObject <NSCopying>
-/// 说话者的userId, nil为自己
+/// 说话者的 userId, nil 为自己
 @property (strong, nonatomic, nullable) NSString *userId;
-/// 说话者的音量, 取值范围 0~100
+/// 说话者的音量, 取值范围 0 - 100
 @property (assign, nonatomic) NSUInteger volume;
 @end
 
 /////////////////////////////////////////////////////////////////////////////////
 //
-//                      【音量大小 TRTCQualityInfo】
+//                      【视频质量 TRTCQualityInfo】
 //                   
 //  表示视频质量的好坏，通过这个数值，您可以在 UI 界面上用图标表征 userId 的通话线路质量
 //
 /////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
+/// 视频质量
 @interface TRTCQualityInfo : NSObject
 /// 用户ID
 @property (nonatomic, copy, nullable)  NSString* userId;
@@ -379,6 +378,7 @@ typedef NS_ENUM(NSInteger, TRTCMediaDeviceType) {
 };
 
 #pragma mark -
+/// 媒体设备描述
 @interface TRTCMediaDeviceInfo : NSObject
 /// 设备类型
 @property (assign, nonatomic) TRTCMediaDeviceType type;
@@ -422,16 +422,20 @@ typedef NS_ENUM(NSInteger, TRTCScreenCaptureSourceType) {
 //
 //                      【网络测速结果 TRTCSpeedTestResult】
 //                   
-//  您可以在用户进入房间前通过 TRTCCloud 的 startSpeedTest 接口进行测速 （注意：请不要在通话中调用）
-//  测速结果会每 2~3 秒钟返回一次，每次返回一个 ip 地址的测试结果，其中：
-//  
-//  >> quality 是内部通过评估算法测算出的网络质量，loss 越低，rtt 越小，得分也就越高
-//  >> upLostRate 是指上行丢包率，例如 0.3 代表每向服务器发送10个数据包，可能有3个会在中途丢失
-//  >> downLostRate 是指下行丢包率，例如 0.2 代表从服务器每收取10个数据包，可能有2个会在中途丢失
-//  >> rtt 是指当前设备到腾讯云服务器的一次网络往返时间，正常数值在 10ms ~ 100ms 之间
-//  
 /////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
+/**
+ * 网络测速结果
+ *
+ * 您可以在用户进入房间前通过 TRTCCloud 的 startSpeedTest 接口进行测速 （注意：请不要在通话中调用），
+ * 测速结果会每 2 - 3 秒钟返回一次，每次返回一个 ip 地址的测试结果。
+ *
+ * 其中：
+ * 1. quality 是内部通过评估算法测算出的网络质量，loss 越低，rtt 越小，得分也就越高
+ * 2. upLostRate 是指上行丢包率，例如 0.3 代表每向服务器发送10个数据包，可能有3个会在中途丢失
+ * 3. downLostRate 是指下行丢包率，例如 0.2 代表从服务器每收取10个数据包，可能有2个会在中途丢失
+ * 4. rtt 是指当前设备到腾讯云服务器的一次网络往返时间，正常数值在10ms - 100ms之间
+ */
 @interface TRTCSpeedTestResult : NSObject
 
 /// 服务器ip地址
@@ -444,12 +448,12 @@ typedef NS_ENUM(NSInteger, TRTCScreenCaptureSourceType) {
 
 /// 上行丢包率，范围是[0,1.0]
 ///
-/// 例如 0.3 代表每向服务器发送10个数据包，可能有3个会在中途丢失
+/// 例如0.3代表每向服务器发送10个数据包，可能有3个会在中途丢失
 @property (nonatomic) float upLostRate;
 
 /// 下行丢包率，范围是[0,1.0]
 ///
-/// 例如 0.2 代表从服务器每收取10个数据包，可能有2个会在中途丢失
+/// 例如0.2代表从服务器每收取10个数据包，可能有2个会在中途丢失
 @property (nonatomic) float downLostRate;
 
 
@@ -470,11 +474,9 @@ typedef NS_ENUM(NSInteger, TRTCScreenCaptureSourceType) {
 @property (nonatomic, assign) TRTCVideoPixelFormat pixelFormat;
 /// 视频数据结构类型
 @property (nonatomic, assign) TRTCVideoBufferType bufferType;
-/// 视频纹理ID
-@property (nonatomic, assign) int textureId;
-/// bufferType为TRTCVideoBufferType_PixelBuffer时的视频数据
+/// bufferType 为 TRTCVideoBufferType_PixelBuffer 时的视频数据
 @property (nonatomic, assign, nullable) CVPixelBufferRef pixelBuffer;
-/// bufferType为TRTCVideoBufferType_NSData时的视频数据
+/// bufferType 为 TRTCVideoBufferType_NSData 时的视频数据
 @property (nonatomic, retain, nullable) NSData* data;
 /// 视频帧的时间戳，单位毫秒
 @property (nonatomic, assign) uint64_t timestamp;
@@ -492,6 +494,7 @@ typedef NS_ENUM(NSInteger, TRTCScreenCaptureSourceType) {
 //
 /////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
+/// 音频帧数据
 @interface TRTCAudioFrame : NSObject
 /// 音频数据
 @property (nonatomic, retain, nonnull) NSData * data;
@@ -510,6 +513,7 @@ typedef NS_ENUM(NSInteger, TRTCScreenCaptureSourceType) {
 //
 /////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
+/// 旁路推流参数
 @interface TRTCPublishCDNParam : NSObject
 /// 腾讯云 AppID，在直播控制台-直播码接入可查询到
 @property (nonatomic) int appId;
@@ -539,21 +543,21 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 
 
 /**
- * TRTCMixUser 用于指定每一路(即每一个userId)视频画面的具体摆放位置
+ * TRTCMixUser 用于指定每一路(即每一个 userId)视频画面的具体摆放位置
  */
 @interface TRTCMixUser : NSObject
-/// 参与混流的userId
-@property(nonatomic, copy) NSString * userId;
+/// 参与混流的 userId
+@property(nonatomic, copy, nonnull) NSString * userId;
 /// 图层位置坐标以及大小，左上角为坐标原点(0,0) （绝对像素值）
 @property(nonatomic, assign) CGRect rect;
-/// 图层层次 （1-15） 不可重复
+/// 图层层次（1 - 15）不可重复
 @property(nonatomic, assign) int zOrder;
-/// 参与混合的是主路画面(TRTCVideoStreamTypeBig)还是屏幕分享(TRTCVideoStreamTypeSub)画面
+/// 参与混合的是主路画面（TRTCVideoStreamTypeBig）还是屏幕分享（TRTCVideoStreamTypeSub）画面
 @property (nonatomic) TRTCVideoStreamType streamType;
 @end
 
 /**
- * TRTCTranscodingConfig 云端转码配置，包括最终编码质量和各路画面的摆放位置
+ * 云端转码配置，包括最终编码质量和各路画面的摆放位置
  */
 @interface TRTCTranscodingConfig : NSObject
 @property(nonatomic, assign) TRTCTranscodingConfigMode mode; ///< 转码config模式 @see TRTCTranscodingConfigMode
@@ -569,7 +573,7 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 @property(nonatomic, assign) int audioSampleRate;  ///< 音频采样率 48000
 @property(nonatomic, assign) int audioBitrate;     ///< 音频码率   64K
 @property(nonatomic, assign) int audioChannels;    ///< 声道数     2
-@property(nonatomic, copy) NSArray<TRTCMixUser *> * mixUsers; ///< 混流配置
+@property(nonatomic, copy, nonnull) NSArray<TRTCMixUser *> * mixUsers; ///< 混流配置
 @end
 
 
