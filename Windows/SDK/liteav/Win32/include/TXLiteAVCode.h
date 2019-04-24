@@ -151,7 +151,7 @@ typedef enum TXLiteAVError
     ERR_SERVER_SSO_TICKET_EXPIRED                   = -70347,   ///< 票据因过期原因校验失败
     ERR_SERVER_SSO_ACCOUNT_IN_BLACKLIST             = -70051,   ///< 帐号已被拉入黑名单，请联系 TLS 帐号支持 3268519604
     ERR_SERVER_SSO_ACCOUNT_EXCEED_PURCHASES         = -70398,   ///< 创建账号数量超过已购买预付费数量限制
-    
+    ERR_SERVER_SSO_APPID_ERROR                      = -70252,   ///< sdkappid填写错误
 } TXLiteAVError;
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -168,6 +168,7 @@ typedef enum TXLiteAVWarning
     WARNING_VIDEO_ENCODER_SW_TO_HW                  = 1107,     ///<  视频编码器从软编码自动切换到硬编码，一般是由于CPU使用率过高触发的
     WARNING_INSUFFICIENT_CAPTURE_FPS                = 1108,     ///<  摄像头采集帧率不足，部分自带美颜算法的 Android 手机上会出现
     WARNING_SW_ENCODER_START_FAIL                   = 1109,     ///<  软编码启动失败
+    WARNING_REDUCE_CAPTURE_RESOLUTION               = 1110,     ///<  摄像头采集分辨率被降低，以满足当前帧率和性能最优解。
 
     WARNING_VIDEO_FRAME_DECODE_FAIL                 = 2101,     ///<  当前视频帧解码失败
     WARNING_AUDIO_FRAME_DECODE_FAIL                 = 2102,     ///<  当前音频帧解码失败
