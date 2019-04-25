@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		LUyV80uSclGJb3qJyCfTrb7SYcc=
+		y0iK9YQSg8alTsSMHq1vP/sk9ag=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -15,44 +15,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			12cmkT+QLc+BS6OSNetqt2ORN5g=
+			C3yY0YtOpGkhDn4MVJp3l/uMppg=
 			</data>
 			<key>hash2</key>
 			<data>
-			b2yFKBW2PsOLTxyu4AWxDZXXtm/rmzjujKqc1yOWVAs=
+			GtWF8+V8JSxyKSbojYNx3WWGV29fcepI68fPkVThGZk=
 			</data>
 		</dict>
 		<key>Headers/TRTCCloudDef.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			H4+IB5kbitopYjAUFZHkoh2zo38=
+			hGfF3hSwrRO5nrmY7MzRNKCfn7I=
 			</data>
 			<key>hash2</key>
 			<data>
-			jozQWmXTK/j2kQLxiQHK9r0vuX6C/48egLQrG1RoRMk=
+			dbe/dkmuudOtlwicqqcRhflqhUJcoUrMFSZkblWRyhM=
 			</data>
 		</dict>
 		<key>Headers/TRTCCloudDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			5jv1Zm9l0rip7aYpNxxJbl1qWik=
+			2CH0k7LVZDYcso8U3LfYN4FJVL4=
 			</data>
 			<key>hash2</key>
 			<data>
-			SZYnyZNDQFr0EPoS2eJzp95gPVgqP0ZOUYZ8vQkoCg4=
+			tFel1opccAlZPDaSisoIRdM+PARfcrOuy9XdBchKZy0=
 			</data>
 		</dict>
 		<key>Headers/TRTCStatistics.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			qoh48ko0lxZklnusgeRuJ9fTf3g=
+			LPhyOAO4hAtKEwM/9SR/JOWWgc8=
 			</data>
 			<key>hash2</key>
 			<data>
-			XTHt5IGGQW6UEZQBx623A++9KLlfJB2FdG2oek3S1lg=
+			q9Qe7qOff4QTV2Vf1H72mQQ0G6OVk2yxv7+/2AZSCis=
 			</data>
 		</dict>
 		<key>Headers/TXAudioCustomProcessDelegate.h</key>
@@ -81,11 +81,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			SwnhBHsN0nkPtGkpus0PMEFuoGg=
+			Y8gR8tKv+Rl+fVvNRBEWfIu2dzA=
 			</data>
 			<key>hash2</key>
 			<data>
-			3FEor2cvj/bzqF4qN/lZfQtnKXD1B9VbCG3WLNX86TE=
+			Kx545wKu4cgLY+0fYmD8vHjVmBVMADa3KqMdpvr2UBw=
 			</data>
 		</dict>
 		<key>Headers/TXLiteAVSDK.h</key>
@@ -224,11 +224,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LUyV80uSclGJb3qJyCfTrb7SYcc=
+			y0iK9YQSg8alTsSMHq1vP/sk9ag=
 			</data>
 			<key>hash2</key>
 			<data>
-			NJC6JgXuAcm/I/bD2N5GIFz1kXCRV6QtEFkmqvPZhCY=
+			tccxbDP3PNygXDOC1j1AjAwKwISp1d511v9KglzQ0yo=
 			</data>
 		</dict>
 	</dict>

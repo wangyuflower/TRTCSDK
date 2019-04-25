@@ -39,7 +39,7 @@
 /// 用户 ID，指定是哪个用户的视频流
 @property (nonatomic, retain) NSString* userId;
 
-/** 该线路的总丢包率(%)
+/** 该线路的总丢包率（％）。
  *
  * 这个值越小越好，比如：0%的丢包率代表网络很好。
  * 这个丢包率是该线路的 userId 从上行到服务器再到下行的总丢包率。
@@ -73,24 +73,22 @@
 /// 统计数据
 @interface TRTCStatistics : NSObject
 
-/** C -> S 上行丢包率(%)
- *
- * 这个值越小越好，比如：0% 的丢包率代表网络很好，
- * 而 30% 的丢包率则意味着 SDK 向服务器发送的每 10 个数据包中就会有 3 个会在上行传输中丢失。
+/** C -> S 上行丢包率（％），
+ * 这个值越小越好，例如，0％的丢包率代表网络很好，
+ * 而 30% 的丢包率则意味着 SDK 向服务器发送的每10个数据包中就会有3个会在上行传输中丢失。
  */
 @property (nonatomic, assign) uint32_t  upLoss;
 
-/** S -> C 下行丢包率(%)
- *
- * 这个值越小越好，比如：0% 的丢包率代表网络很好，
- * 而 30% 的丢包率则意味着服务器向 SDK 发送的每 10 个数据包中就会有 3 个会在下行传输中丢失。
+/** S -> C 下行丢包率（％），
+ * 这个值越小越好，例如，0％的丢包率代表网络很好，
+ * 而 30% 的丢包率则意味着服务器向 SDK 发送的每10个数据包中就会有3个会在下行传输中丢失。
  */
 @property (nonatomic, assign) uint32_t  downLoss;
 
-///当前 App 的 CPU 使用率 (%)
+///当前 App 的 CPU 使用率（％）
 @property (nonatomic, assign) uint32_t  appCpu;
 
-///当前系统的 CPU 使用率 (%)
+///当前系统的 CPU 使用率（％）
 @property (nonatomic, assign) uint32_t  systemCpu;
 
 /// 延迟（毫秒）
@@ -100,10 +98,10 @@
 /// 由于数据上下行共享一条网络连接，所以 local 和 remote 的 rtt 相同。
 @property (nonatomic, assign) uint32_t  rtt;
 
-/// 总接收字节数(包含信令及音视频)
+/// 总接收字节数（包含信令及音视频）
 @property (nonatomic, assign) uint64_t  receivedBytes;
 
-/// 总发送字节数(包含信令及音视频)
+/// 总发送字节数（包含信令及音视频）
 @property (nonatomic, assign) uint64_t  sentBytes;
 
 ///自己本地的音视频统计信息，由于可能有大画面、小画面以及辅路画面等多路的情况，所以是一个数组
