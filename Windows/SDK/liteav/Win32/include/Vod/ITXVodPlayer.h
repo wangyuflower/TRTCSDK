@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __ITXVODPLAYER_H__
+#define __ITXVODPLAYER_H__
 /*
 * Module:  ITXVodPlayer @ TXLiteAVSDK
 *
@@ -126,3 +127,5 @@ public:
     */
     virtual void onVodPlayerError(int error) = 0;
 };
+
+#endif //__ITXVODPLAYER_H__
