@@ -69,17 +69,24 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)onExitRoom:(NSInteger)reason;
 
+/**
+ * 2.3 切换角色结果回调
+ *
+ * @param errCode 错误码
+ * @param errMsg  错误信息
+ */
+- (void)onSwitchRole:(TXLiteAVError)errCode errMsg:(nullable NSString *)errMsg;
 
 /**
- * 2.3 请求跨房通话的结果回调
+ * 2.4 请求跨房通话的结果回调
  */
 - (void)onConnectOtherRoom:(NSString*)userId errCode:(TXLiteAVError)errCode errMsg:(nullable NSString *)errMsg;
 
-
 /**
- * 2.4 断开跨房通话的结果回调
+ * 2.5 断开跨房通话的结果回调
  */
 - (void)onDisconnectOtherRoom:(TXLiteAVError)errCode errMsg:(nullable NSString *)errMsg;
+
 /// @}
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -198,10 +205,11 @@ NS_ASSUME_NONNULL_BEGIN
  * 5.1 首帧视频画面已到达，界面此时可以结束 Loading，并开始显示视频画面
  * 
  * @param userId 用户 ID
+ * @param streamType 视频流类型，大画面还是小画面或辅流画面（屏幕分享）
  * @param width  画面宽度
  * @param height 画面高度
  */ 
-- (void)onFirstVideoFrame:(NSString*)userId width:(int)width height:(int)height;
+- (void)onFirstVideoFrame:(NSString*)userId streamType:(TRTCVideoStreamType)streamType width:(int)width height:(int)height;
 
 /**
  * 5.2 首帧音频数据已到达

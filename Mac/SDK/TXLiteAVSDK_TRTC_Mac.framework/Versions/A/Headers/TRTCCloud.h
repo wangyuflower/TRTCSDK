@@ -3,7 +3,7 @@
  * 
  * Function: 腾讯云视频通话功能的主要接口类
  *
- * Version: 6.4.7111
+ * Version: 6.5.7272
  */
 
 #import <Foundation/Foundation.h>
@@ -78,8 +78,20 @@
  */
 - (void)exitRoom;
 
+
 /**
- * 1.3 请求跨房通话
+ * 1.3 切换角色，仅适用于直播场景（TRTCAppSceneLIVE）
+ *
+ * 在直播场景下，一个用户可能需要在“观众”和“主播”之间来回切换。
+ * 您可以在进房前通过 TRTCParams 中的 role 字段确定角色，也可以通过 switchRole 在进房后切换角色。
+ *
+ * @param role 目标角色。
+ */
+-(void) switchRole:(TRTCRoleType)role;
+
+
+/**
+ * 1.4 请求跨房通话
  *
  * TRTC SDK 支持两个不同的房间之间进行互联。在通话场景下，该功能意义不大。
  * 在直播场景下，该功能可用于实现“主播 PK”的功能，即两个主播在已经有各自音视频房间存在的情况下，
@@ -106,12 +118,11 @@
 - (void)connectOtherRoom:(NSString *)param;
 
 /**
- * 1.4 退出跨房通话
+ * 1.5 退出跨房通话
  *
  * 跨房通话的退出结果会通过 TRTCCloudDelegate 中的 onDisconnectOtherRoom 回调通知给您。
  **/
 - (void)disconnectOtherRoom;
-
 /// @}
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -474,7 +485,7 @@
 - (NSArray<TRTCMediaDeviceInfo*>*)getCameraDevicesList;
 
 /**
- * 4.11 获取当前要使用的摄像头
+ * 4.11 获取当前使用的摄像头
  */
 - (TRTCMediaDeviceInfo*)getCurrentCameraDevice;
 
@@ -893,8 +904,6 @@
  */
 - (int)setRemoteVideoRenderDelegate:(NSString*)userId delegate:(id<TRTCVideoRenderDelegate>)delegate pixelFormat:(TRTCVideoPixelFormat)pixelFormat bufferType:(TRTCVideoBufferType)bufferType;
 
-#if TARGET_OS_IPHONE
-
 /**
  * 8.5 启用音频自定义采集模式
  *
@@ -935,7 +944,6 @@
  * @param delegate 音频数据回调，delegate = nil 则停止回调数据
  */
 - (void)setAudioFrameDelegate:(id<TRTCAudioFrameDelegate>)delegate;
-#endif
 
 /// @}
 

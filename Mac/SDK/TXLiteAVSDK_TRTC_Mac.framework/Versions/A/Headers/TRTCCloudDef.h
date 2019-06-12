@@ -198,7 +198,20 @@ typedef NS_ENUM(NSInteger, TRTCAppScene) {
 };
 
 /**
- * 2.2 流控模式
+ * 2.2 角色，仅适用于直播场景（TRTCAppSceneLIVE）
+ *
+ * 在直播场景中，多数用户只是观众，只有个别用户是主播，这种角色区分可以有利于 TRTC 进行更好的定向优化。
+ *
+ * - Anchor：主播，可以上行视频和音频，一个房间里的主播人数不能超过 50 人。
+ * - Audience：观众，只能观看，不能上行视频和音频，一个房间里的观众人数没有上限。
+ */
+typedef NS_ENUM(NSInteger, TRTCRoleType) {
+    TRTCRoleAnchor            =  20,   ///< 主播
+    TRTCRoleAudience          =  21,   ///< 观众
+};
+
+/**
+ * 2.3 流控模式
  *
  * TRTC SDK 内部需要时刻根据网络情况调整内部的编解码器和网络模块，以便能够对网络的变化做出反应。
  * 为了支持快速算法升级，SDK 内部设置了两种不同的流控模式：
@@ -214,7 +227,7 @@ typedef NS_ENUM(NSInteger, TRTCQosControlMode)
 };
 
 /**
- * 2.3 画质偏好
+ * 2.4 画质偏好
  *
  * 指当 TRTC SDK 在遇到弱网络环境时，您是希望“保清晰”还是“保流畅”：
  *
@@ -226,7 +239,6 @@ typedef NS_ENUM(NSInteger, TRTCVideoQosPreference)
     TRTCVideoQosPreferenceSmooth = 1,      ///< 弱网下保流畅
     TRTCVideoQosPreferenceClear  = 2,      ///< 弱网下保清晰
 };
-
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -408,6 +420,10 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 ///【推荐取值】您可以随意指定，但请不要重复，如果您的用户账号 ID 是数字类型的，可以直接用创建者的用户 ID 来作为 roomId。
 @property (nonatomic, assign) UInt32 roomId;
 
+///【字段含义】直播场景下的角色，仅适用于直播场景（TRTCAppSceneLIVE），视频通话场景下指定无效。
+///【推荐取值】默认值：主播（TRTCRoleAnchor）
+@property (nonatomic, assign) TRTCRoleType role;
+
 ///【字段含义】房间签名（非必填），如果您希望某个房间只能让特定的某些 userId 进入，就需要使用 privateMapKey 进行权限保护。
 ///【推荐取值】仅建议有高级别安全需求的客户使用，参考文档：[进房权限保护](https://cloud.tencent.com/document/product/647/32240)
 @property (nonatomic, strong, nullable) NSString* privateMapKey;
@@ -440,7 +456,7 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 @property (nonatomic, assign) TRTCVideoResolutionMode resMode;
 
 ///【字段含义】视频采集帧率
-///【推荐取值】推荐设置为15fps或20fps，10fps以下会有明显的卡顿感，20fps以上则没有必要
+///【推荐取值】15fps 或 20fps，10fps 以下会有轻微卡顿感，5fps 以下卡顿感明显，20fps 以上的帧率则过于浪费（电影的帧率也只有 24fps）。
 ///【特别说明】很多 Android 手机的前置摄像头并不支持15fps以上的采集帧率，部分过于突出美颜功能的 Android 手机前置摄像头的采集帧率可能低于10fps。
 @property (nonatomic, assign) int videoFps;
 

@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		y0iK9YQSg8alTsSMHq1vP/sk9ag=
+		LUyV80uSclGJb3qJyCfTrb7SYcc=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -15,33 +15,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			WVrQiSiTD8C2vs/4bRZrUZk7vjw=
+			IANWsjYL9r5G4Cpo/Gx8smoSW5Y=
 			</data>
 			<key>hash2</key>
 			<data>
-			35cG3t8NF1mrYdb/Jebo2MAHqfJ83vr19iyMN2MjE3g=
+			gbuxlbDHdBChrkQY7smk5KRGNE6JlJ+r45YBHdDGRyM=
 			</data>
 		</dict>
 		<key>Headers/TRTCCloudDef.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			hGfF3hSwrRO5nrmY7MzRNKCfn7I=
+			1EUFPE/FJo1CIFdXoQO3ysEafr8=
 			</data>
 			<key>hash2</key>
 			<data>
-			dbe/dkmuudOtlwicqqcRhflqhUJcoUrMFSZkblWRyhM=
+			6GsaGYQ0AW71bEVCqaAKWGkpH3RzhfwsDbD9M34ljCI=
 			</data>
 		</dict>
 		<key>Headers/TRTCCloudDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2CH0k7LVZDYcso8U3LfYN4FJVL4=
+			awMPRyGuj6tNSkPPXKxKJ/qe7Uw=
 			</data>
 			<key>hash2</key>
 			<data>
-			tFel1opccAlZPDaSisoIRdM+PARfcrOuy9XdBchKZy0=
+			hCO4NZ+8m0EMzbVh+uOCDfKxHyOPhHf2mrRAenszi7w=
 			</data>
 		</dict>
 		<key>Headers/TRTCStatistics.h</key>
@@ -81,11 +81,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Y8gR8tKv+Rl+fVvNRBEWfIu2dzA=
+			ZYLIyBaYIY1ChJJ499DkgrMI+d4=
 			</data>
 			<key>hash2</key>
 			<data>
-			Kx545wKu4cgLY+0fYmD8vHjVmBVMADa3KqMdpvr2UBw=
+			unGDa62MfVI2LOgaxjkwdR3kuD+eycTF3OXSLVhKN+0=
 			</data>
 		</dict>
 		<key>Headers/TXLiteAVSDK.h</key>
@@ -125,44 +125,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			fpBmfX6gbAavweY8jJGsSBDlLsE=
+			DmP6lsmV3BTv5htMc7Q5kvBEJew=
 			</data>
 			<key>hash2</key>
 			<data>
-			+3VMxzFdpnjdJ5feeak8nigo/Pe5L4tp8p6ZwHLKjFQ=
+			JpfGChokhVSAH7m1gGgRfXV+lCjQUdF2O4jETE2EptM=
 			</data>
 		</dict>
 		<key>Headers/TXLivePlayListener.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			aJfF/YxDowBJiLXXTEaGZ156jKo=
+			4CgharJX58niSHdB/P1v8zKeUMQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			tTTfmb6APuffyOgsp1dX3rnKSPRnrhgOCSX8iNzV4Hg=
+			uYtOD2NTLMPVdbwdINLHk3DOWRcjn1umeTLAHtP0a2U=
 			</data>
 		</dict>
 		<key>Headers/TXLivePlayer.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			CV9AzgBHlTU5YGOLMDeie5R9qAY=
+			dwIcpOf8YC/Qz0LUnKjFnIVogUc=
 			</data>
 			<key>hash2</key>
 			<data>
-			FviT3t7aiMEOsPoxQTLxnQ6stV/cGmqF32cWxpvQiOQ=
+			FOC3JLitU8k5EFXj9DUahRNFsitXgkvTB1nfxl8HfW4=
 			</data>
 		</dict>
 		<key>Headers/TXLiveRecordListener.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			96JyRyAMAv5Eh+kQm0blHeRb0EQ=
+			LqG4j8oDBz9fFngOoJDaQHzB0D8=
 			</data>
 			<key>hash2</key>
 			<data>
-			MF7ar+U8T3I4Lvyf4m9V0VznV/7bUVVHPXVGLyCE2M0=
+			5eXJjifJGtQcB1RC3P5EHKXofnHVveR7PbhXYYI/AJU=
 			</data>
 		</dict>
 		<key>Headers/TXLiveRecordTypeDef.h</key>
@@ -180,22 +180,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JJTt/ki3GADOfffMGDP/lwqxCwE=
+			JZUlG2K4kAjksvGideBUvdZ5vQM=
 			</data>
 			<key>hash2</key>
 			<data>
-			7r6+3wAfwiJM8t+MWY6SekfeasyCn5QsHgSYDd3GHSk=
+			sJNg84ywQTofQXH6db54IypSeB4z3fvQ2mmXF8/LffQ=
 			</data>
 		</dict>
 		<key>Headers/TXLiveSDKTypeDef.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			HdhWR30I2yTOWq9qOBd02wO4VvU=
+			kchcZ1RI+q/DxI1OygUVE3ixfk8=
 			</data>
 			<key>hash2</key>
 			<data>
-			iCsFGxmBEgfebSNrqPZXJzTPip/vzj49bMDMxzATEik=
+			EGNS7UQ4eYkByZGEVE7X8V4PefoSDDoCKlkWlcxHqZM=
 			</data>
 		</dict>
 		<key>Headers/TXVideoCustomProcessDelegate.h</key>
@@ -224,11 +224,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			y0iK9YQSg8alTsSMHq1vP/sk9ag=
+			LUyV80uSclGJb3qJyCfTrb7SYcc=
 			</data>
 			<key>hash2</key>
 			<data>
-			tccxbDP3PNygXDOC1j1AjAwKwISp1d511v9KglzQ0yo=
+			NJC6JgXuAcm/I/bD2N5GIFz1kXCRV6QtEFkmqvPZhCY=
 			</data>
 		</dict>
 	</dict>
