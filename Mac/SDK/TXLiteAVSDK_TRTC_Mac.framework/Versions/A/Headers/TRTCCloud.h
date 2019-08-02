@@ -3,7 +3,7 @@
  * 
  * Function: 腾讯云视频通话功能的主要接口类
  *
- * Version: 6.5.7272
+ * Version: 6.6.7459
  */
 
 #import <Foundation/Foundation.h>
@@ -67,14 +67,25 @@
 /**
  * 1.1 进入房间
  *
+ * 如果加入成功，您会收到来自 TRTCCloudDelegate 中的 onEnterRoom(result) 回调:
+ * 如果加入成功，result 会是一个正数（result > 0），代表加入房间的时间消耗，单位是毫秒（ms）。
+ * 如果加入失败，result 会是一个负数（result < 0），代表进房失败的错误码。
+ * 进房失败的错误码含义请查阅[错误码表](https://cloud.tencent.com/document/product/647/32257)。
+ *
  * @param param 进房参数，请参考 TRTCParams
  * @param scene 应用场景，目前支持视频通话（VideoCall）和在线直播（Live）两种场景
- * @note 不管进房是否成功，都必须与 exitRoom 配对使用，在调用 exitRoom 前再次调用 enterRoom 函数会导致不可预期的错误问题
+ * @note 不管进房是否成功，都必须与 exitRoom 配对使用，在调用 exitRoom 前再次调用 enterRoom 函数会导致不可预期的错误问题。
  */
 - (void)enterRoom:(TRTCParams *)param appScene:(TRTCAppScene)scene;
 
 /**
  * 1.2 离开房间
+ *
+ * 调用 exitRoom() 接口会执行退出房间的相关逻辑，比如释放音视频设备资源和编解码器资源等。
+ * 待资源释放完毕之后，SDK 会通过 TRTCCloudDelegate 中的 onExitRoom() 回调通知到您。
+ *
+ * 如果您要再次调用 enterRoom() 或者切换到其他的音视频 SDK，请等待 onExitRoom() 回调到来之后再执行相关操作。
+ * 否则可能会遇到摄像头或麦克风（比如 iOS 里的 AudioSession）被占用等各种异常问题。
  */
 - (void)exitRoom;
 
@@ -91,21 +102,40 @@
 
 
 /**
- * 1.4 请求跨房通话
+ * 1.4 请求跨房通话（主播 PK）
+ * 
+ * TRTC 中两个不同音视频房间中的主播，可以通过“跨房通话”功能拉通连麦通话功能。这样一来，
+ * 两个主播可以不用退出各自原来的直播间就能进行“连麦 PK”。
+ * 
+ * 例如：当房间“001”中的主播 A 通过 connectOtherRoom() 跟房间“002”中的主播 B 拉通跨房通话后，
+ * 房间“001”中的用户都会收到主播 B 的 onUserEnter(B) 回调和 onUserVideoAvailable(B,YES) 回调。
+ * 房间“002”中的用户都会收到主播 A 的 onUserEnter(A) 回调和 onUserVideoAvailable(A,YES) 回调。
  *
- * TRTC SDK 支持两个不同的房间之间进行互联。在通话场景下，该功能意义不大。
- * 在直播场景下，该功能可用于实现“主播 PK”的功能，即两个主播在已经有各自音视频房间存在的情况下，
- * 通过跨房通话功能，可以在保留两个音视频房间的情况下把麦上的主播拉通在一起。
+ * 简言之，跨房通话的本质，就是把两个不同房间中的主播相互分享，让每个房间里的观众都能看到两个主播。
  *
- * 跨房通话的参数采用了 JSON 格式，要求至少包含两个字段：
- * - roomId：连麦房间号，比如 A 主播当前的房间号是123，另一个主播 B 的房间号是678，对于主播 A 而言，roomId 填写123即可。
- * - userId：另一个房间的 userId，在“主播 PK”场景下，userId 指定为另一个房间的主播 ID 即可。
+ * <pre>
+ *                 房间 001                     房间 002
+ *               -------------               ------------
+ *  跨房通话前：| 主播 A      |             | 主播 B     |
+ *              | 观众 U V W  |             | 观众 X Y Z |
+ *               -------------               ------------
  *
- * 跨房通话的请求结果会通过 TRTCCloudDelegate 中的 onConnectOtherRoom 回调通知给您。
+ *                 房间 001                     房间 002
+ *               -------------               ------------
+ *  跨房通话后：| 主播 A B    |             | 主播 B A   |
+ *              | 观众 U V W  |             | 观众 X Y Z |
+ *               -------------               ------------
+ * </pre>
+ *
+ * 跨房通话的参数考虑到后续扩展字段的兼容性问题，暂时采用了 JSON 格式的参数，要求至少包含两个字段：
+ * - roomId：房间“001”中的主播 A 要跟房间“002”中的主播 B 连麦，主播 A 调用 connectOtherRoom() 时 roomId 应指定为“002”。
+ * - userId：房间“001”中的主播 A 要跟房间“002”中的主播 B 连麦，主播 A 调用 connectOtherRoom() 时 userId 应指定为 B 的 userId。
+ *
+ * 跨房通话的请求结果会通过 TRTCCloudDelegate 中的 onConnectOtherRoom() 回调通知给您。
  *
  * <pre>
  *   NSMutableDictionary * jsonDict = [[NSMutableDictionary alloc] init];
- *   [jsonDict setObject:@(678) forKey:@"roomId"];
+ *   [jsonDict setObject:@(002) forKey:@"roomId"];
  *   [jsonDict setObject:@"userB" forKey:@"userId"];
  *   NSData* jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict options:NSJSONWritingPrettyPrinted error:nil];
  *   NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
@@ -120,7 +150,7 @@
 /**
  * 1.5 退出跨房通话
  *
- * 跨房通话的退出结果会通过 TRTCCloudDelegate 中的 onDisconnectOtherRoom 回调通知给您。
+ * 跨房通话的退出结果会通过 TRTCCloudDelegate 中的 onDisconnectOtherRoom() 回调通知给您。
  **/
 - (void)disconnectOtherRoom;
 /// @}
@@ -137,7 +167,9 @@
 #if TARGET_OS_IPHONE
 /**
  * 2.1 开启本地视频的预览画面 (iOS 版本)
- * 
+ *
+ * 当开始渲染首帧摄像头画面时，您会收到 TRTCCloudDelegate 中的 onFirstVideoFrame(nil) 回调。 
+ *
  * @param frontCamera YES：前置摄像头；NO：后置摄像头。
  * @param view 承载视频画面的控件
  */
@@ -147,6 +179,7 @@
  * 2.1 开启本地视频的预览画面 (Mac 版本)
  *
  * 在调用该方法前，可以先调用 setCurrentCameraDevice 选择使用 Mac 自带的摄像头还是外接摄像头。
+ * 当开始渲染首帧摄像头画面时，您会收到 TRTCCloudDelegate 中的 onFirstVideoFrame(nil) 回调。
  *
  * @param view 承载视频画面的控件
  */
@@ -159,31 +192,7 @@
 - (void)stopLocalPreview;
 
 /**
- * 2.3 开始显示远端视频画面
- *
- * 在收到 SDK 的 onUserVideoAvailable 回调时，调用这个接口，就可以显示远端视频的画面了。
- *
- * @param userId 对方的用户标识
- * @param view 承载视频画面的控件
- */
-- (void)startRemoteView:(NSString *)userId view:(TXView *)view;
-
-/**
- * 2.4 停止显示远端视频画面
- *
- * @param userId 对方的用户标识
- */
-- (void)stopRemoteView:(NSString *)userId;
-
-/**
- * 2.5 停止显示所有远端视频画面
- *
- * @note 如果有屏幕分享的画面在显示，则屏幕分享的画面也会一并被关闭。
- */
-- (void)stopAllRemoteView;
-
-/**
- * 2.6 是否屏蔽自己的视频画面
+ * 2.3 是否屏蔽自己的视频画面
  * 
  * 当屏蔽本地视频后，房间里的其它成员将会收到 onUserVideoAvailable 回调通知
  * 
@@ -192,7 +201,52 @@
 - (void)muteLocalVideo:(BOOL)mute;
 
 /**
- * 2.7 设置视频编码器相关参数
+ * 2.4 开始显示远端视频画面
+ *
+ * 在收到 SDK 的 onUserVideoAvailable(userid, YES) 通知时，可以获知该远程用户开启了视频，
+ * 之后调用 startRemoteView(userid) 接口加载该用户的远程画面，此时可以用 loading 动画优化加载过程中的等待体验。
+ * 待该用户的首帧画面开始显示时，您还会收到 onFirstVideoFrame(userid) 事件回调。
+ *
+ * @param userId 对方的用户标识
+ * @param view 承载视频画面的控件
+ */
+- (void)startRemoteView:(NSString *)userId view:(TXView *)view;
+
+/**
+ * 2.5 停止显示远端视频画面
+ *
+ * 调用此接口后，SDK 会停止接收该用户的远程视频流，同时会清理相关的视频显示资源。
+ *
+ * @param userId 对方的用户标识
+ */
+- (void)stopRemoteView:(NSString *)userId;
+
+/**
+ * 2.6 停止显示所有远端视频画面
+ *
+ * @note 如果有屏幕分享的画面在显示，则屏幕分享的画面也会一并被关闭。
+ */
+- (void)stopAllRemoteView;
+
+/**
+ * 2.7 暂停接收指定的远端视频流
+ *
+ * 该接口仅停止接收远程用户的视频流，但并不释放显示资源，所以视频画面会冻屏在 mute 前的最后一帧。
+ *
+ * @param userId 对方的用户标识
+ * @param mute  是否停止接收
+ */
+- (void)muteRemoteVideoStream:(NSString*)userId mute:(BOOL)mute;
+
+/**
+ * 2.8 停止接收所有远端视频流
+ *
+ * @param mute 是否停止接收
+ */
+- (void)muteAllRemoteVideoStreams:(BOOL)mute;
+
+/**
+ * 2.9 设置视频编码器相关参数
  * 
  * 该设置决定了远端用户看到的画面质量（同时也是云端录制出的视频文件的画面质量）
  * 
@@ -201,7 +255,7 @@
 - (void)setVideoEncoderParam:(TRTCVideoEncParam*)param;
 
 /**
- * 2.8 设置网络流控相关参数
+ * 2.10 设置网络流控相关参数
  * 
  * 该设置决定了 SDK 在各种网络环境下的调控策略（比如弱网下是“保清晰”还是“保流畅”）
  * 
@@ -210,14 +264,14 @@
 - (void)setNetworkQosParam:(TRTCNetworkQosParam*)param;
 
 /**
- * 2.9 设置本地图像的渲染模式
+ * 2.11 设置本地图像的渲染模式
  *
  * @param mode 填充（画面可能会被拉伸裁剪）或适应（画面可能会有黑边）
  */
 - (void)setLocalViewFillMode:(TRTCVideoFillMode)mode;
 
 /**
- * 2.10 设置远端图像的渲染模式
+ * 2.12 设置远端图像的渲染模式
  *
  * @param userId 用户 ID
  * @param mode 填充（画面可能会被拉伸裁剪）或适应（画面可能会有黑边）
@@ -225,14 +279,14 @@
 - (void)setRemoteViewFillMode:(NSString*)userId mode:(TRTCVideoFillMode)mode;
 
 /**
- * 2.11 设置本地图像的顺时针旋转角度
+ * 2.13 设置本地图像的顺时针旋转角度
  * 
  * @param rotation 支持90、180、270旋转角度
  */
 - (void)setLocalViewRotation:(TRTCVideoRotation)rotation;
 
 /**
- * 2.12 设置远端图像的顺时针旋转角度
+ * 2.14 设置远端图像的顺时针旋转角度
  * 
  * @param userId 用户 ID
  * @param rotation 支持90、180、270旋转角度
@@ -240,7 +294,7 @@
 - (void)setRemoteViewRotation:(NSString*)userId rotation:(TRTCVideoRotation)rotation;
 
 /**
- * 2.13 设置视频编码输出的（也就是远端用户观看到的，以及服务器录制下来的）画面方向
+ * 2.15 设置视频编码输出的（也就是远端用户观看到的，以及服务器录制下来的）画面方向
  *
  * 在 iPad、iPhone 等设备180度旋转时，由于摄像头的采集方向没有变，所以另一边的用户看到的画面是上下颠倒的，
  * 在这种情况下，您可以通过该接口将 SDK 输出到对方的画面旋转180度，这样可以可以确保对方看到的画面依然正常。
@@ -252,7 +306,7 @@
 #if TARGET_OS_IPHONE
 
 /**
- * 2.14 设置本地摄像头预览画面的镜像模式（iOS）
+ * 2.16 设置本地摄像头预览画面的镜像模式（iOS）
  *
  * @param mirror 镜像模式
  */
@@ -260,7 +314,7 @@
 #elif TARGET_OS_MAC
 
 /**
- * 2.14 设置本地摄像头预览画面的镜像模式（Mac）
+ * 2.17 设置本地摄像头预览画面的镜像模式（Mac）
  *
  * @param mirror 镜像模式
  */
@@ -268,7 +322,7 @@
 #endif
 
 /**
- * 2.15 设置编码器输出的画面镜像模式
+ * 2.18 设置编码器输出的画面镜像模式
  *
  * 该接口不改变本地摄像头的预览画面，但会改变另一端用户看到的（以及服务器录制下来的）画面效果。
  *
@@ -277,14 +331,14 @@
 - (void)setVideoEncoderMirror:(BOOL)mirror;
 
 /**
- * 2.16 设置重力感应的适应模式
+ * 2.19 设置重力感应的适应模式
  * 
  * @param mode 重力感应模式，详情请参考 TRTCGSensorMode 的定义
  */
 - (void)setGSensorMode:(TRTCGSensorMode) mode;
 
 /**
- * 2.17 开启大小画面双路编码模式
+ * 2.20 开启大小画面双路编码模式
  *
  * 如果当前用户是房间中的主要角色（比如主播、老师、主持人等），并且使用 PC 或者 Mac 环境，可以开启该模式。
  * 开启该模式后，当前用户会同时输出【高清】和【低清】两路视频流（但只有一路音频流）。
@@ -303,7 +357,7 @@
 - (int)enableEncSmallVideoStream:(BOOL)enable withQuality:(TRTCVideoEncParam*)smallVideoEncParam;
 
 /**
- * 2.18 选定观看指定 uid 的大画面还是小画面
+ * 2.21 选定观看指定 uid 的大画面还是小画面
  *
  * 此功能需要该 uid 通过 enableEncSmallVideoStream 提前开启双路编码模式。
  * 如果该 uid 没有开启双路编码模式，则此操作将无任何反应。
@@ -314,7 +368,7 @@
 - (void)setRemoteVideoStreamType:(NSString*)userId type:(TRTCVideoStreamType)type;
 
 /**
- * 2.19 设定观看方优先选择的视频质量
+ * 2.22 设定观看方优先选择的视频质量
  *
  * 低端设备推荐优先选择低清晰度的小画面。
  * 如果对方没有开启双路视频模式，则此操作无效。
@@ -357,7 +411,7 @@
  * 当静音本地音频后，房间里的其它成员会收到 onUserAudioAvailable(NO) 回调通知。
  * 
  * 与 stopLocalAudio 不同之处在于，muteLocalAudio 并不会停止发送音视频数据，而是会继续发送码率极低的静音包。
- * 在对录制质量要求很高的场景中，选择 muteLocalAudio 是更好的选择，能录指出兼容性更好的 MP4 文件。
+ * 在对录制质量要求很高的场景中，选择 muteLocalAudio 是更好的选择，能录制出兼容性更好的 MP4 文件。
  * 这是由于 MP4 等视频文件格式，对于音频的连续性是要求很高的，简单粗暴地 stopLocalAudio 会导致录制出的 MP4 不易播放。
  *
  * @param mute YES：屏蔽；NO：开启
@@ -391,15 +445,42 @@
 - (void)muteAllRemoteAudio:(BOOL)mute;
 
 /**
- * 3.7 启用音量大小提示
+ * 3.7 设置某个远程用户的播放音量
  *
- * 开启后会在 onUserVoiceVolume 中获取到 SDK 对音量大小值的评估。
+ * @param userId 远程用户 ID
+ * @param volume 音量大小，取值0 - 100
+ */
+- (void)setRemoteAudioVolume:(NSString *)userId volume:(int)volume;
+
+/**
+ * 3.8 启用音量大小提示
+ *
+ * 开启此功能后，SDK 会在 onUserVoiceVolume() 中反馈对每一路声音音量大小值的评估。
  * 我们在 Demo 中有一个音量大小的提示条，就是基于这个接口实现的。
+ * 如希望打开此功能，请在 startLocalAudio() 之前调用。
  *
- * 
- * @param interval 决定了 onUserVoiceVolume 回调的触发间隔，单位为ms，最小间隔为100ms，如果小于等于0则会关闭回调，建议设置为300ms；详细的回调规则请参考 onUserVoiceVolume 的注释说明
+ * @param interval 设置 onUserVoiceVolume 回调的触发间隔，单位为ms，最小间隔为100ms，如果小于等于0则会关闭回调，建议设置为300ms；
  */
 - (void)enableAudioVolumeEvaluation:(NSUInteger)interval;
+
+/**
+ * 3.9 开始录音
+ *
+ * 该方法调用后， SDK 会将通话过程中的所有音频(包括本地音频，远端音频，BGM等)录制到一个文件里。
+ * 无论是否进房，调用该接口都生效。
+ * 如果调用 exitRoom 时还在录音，录音会自动停止。
+ *
+ * @param TRTCAudioRecordingParams 录音参数，请参考TRTCAudioRecordingParams
+ * @return 0：成功；-1：录音已开始；-2：文件或目录创建失败；-3：后缀指定的音频格式不支持
+ */
+- (int)startAudioRecording:(TRTCAudioRecordingParams*) param;
+
+/**
+ * 3.10 停止录音
+ *
+ * 如果调用 exitRoom 时还在录音，录音会自动停止。
+ */
+- (void)stopAudioRecording;
 
 /// @}
  
@@ -432,7 +513,6 @@
  * 这里最大值推荐为5，超过5后视频数据会变得模糊不清。
  * 
  * @param distance 取值范围为1 - 5，数值越大，焦距越远
- * @note 
  */
 - (void)setZoom:(CGFloat)distance;
 

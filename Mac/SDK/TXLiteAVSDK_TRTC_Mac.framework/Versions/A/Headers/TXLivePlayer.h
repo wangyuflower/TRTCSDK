@@ -217,13 +217,36 @@ typedef NS_ENUM(NSInteger, TX_Enum_PlayType) {
  */
 - (void)setMute:(BOOL)bEnable;
 
+/**
+ * 4.2 设置音量
+ *
+ * @param volume 音量大小，取值范围0 - 100
+ */
+- (void)setVolume:(int)volume;
+
 #if TARGET_OS_IPHONE
 /**
- * 4.2 设置声音播放模式（切换扬声器，听筒）
+ * 4.3 设置声音播放模式（切换扬声器，听筒）
  * @param audioRoute 声音播放模式
  */
 + (void)setAudioRoute:(TXAudioRouteType)audioRoute;
 #endif
+
+/**
+ * 4.4 设置音量大小回调接口
+ *
+ * @param volumeEvaluationListener 音量大小回调接口，音量取值范围0 - 100
+ */
+- (void)setAudioVolumeEvaluationListener:(void(^)(int))volumeEvaluationListener;
+
+/**
+ * 4.5 启用音量大小提示
+ *
+ * 开启后会在 volumeEvaluationListener 中获取到 SDK 对音量大小值的评估。
+ *
+ * @param interval 决定了 volumeEvaluationListener 回调的触发间隔，单位为ms，最小间隔为100ms，如果小于等于0则会关闭回调，建议设置为300ms；
+ */
+- (void)enableAudioVolumeEvaluation:(NSUInteger)interval;
 
 /// @}
 
@@ -331,6 +354,15 @@ typedef NS_ENUM(NSInteger, TX_Enum_PlayType) {
  * @warning playUrl 必须是当前播放直播流的不同清晰度，切换到无关流地址可能会失败
  */
 - (int)switchStream:(NSString *)playUrl;
+
+/**
+ * 7.4 调用实验性 API 接口
+ *
+ * @note 该接口用于调用一些实验性功能
+ * @param jsonStr 接口及参数描述的 JSON 字符串
+ */
+- (void)callExperimentalAPI:(NSString*)jsonStr;
+
 @end
 
 /// @}

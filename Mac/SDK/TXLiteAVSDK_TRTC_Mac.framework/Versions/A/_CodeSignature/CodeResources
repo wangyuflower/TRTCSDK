@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Info.plist</key>
 		<data>
-		LUyV80uSclGJb3qJyCfTrb7SYcc=
+		Baat3o8fR+YBrd08/jHvuyCwUsE=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -15,33 +15,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			IANWsjYL9r5G4Cpo/Gx8smoSW5Y=
+			/CK9cGULiUkMKLwEtx7DdrRxcCs=
 			</data>
 			<key>hash2</key>
 			<data>
-			gbuxlbDHdBChrkQY7smk5KRGNE6JlJ+r45YBHdDGRyM=
+			jOyAwckA4P83RqiynyCISUeSwdaaPoXbKSn8TCoTLYI=
 			</data>
 		</dict>
 		<key>Headers/TRTCCloudDef.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1EUFPE/FJo1CIFdXoQO3ysEafr8=
+			asUZIajge95vrNYJVxsF4cbruFw=
 			</data>
 			<key>hash2</key>
 			<data>
-			6GsaGYQ0AW71bEVCqaAKWGkpH3RzhfwsDbD9M34ljCI=
+			s5XNoYz6Yd7i50qWwDd06WTjHFenlQUQOdk/XCXaU2o=
 			</data>
 		</dict>
 		<key>Headers/TRTCCloudDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			awMPRyGuj6tNSkPPXKxKJ/qe7Uw=
+			r/G2oFhW2i4NNlXgrmRzFysvDeo=
 			</data>
 			<key>hash2</key>
 			<data>
-			hCO4NZ+8m0EMzbVh+uOCDfKxHyOPhHf2mrRAenszi7w=
+			3IBCj6pngYk87R9BVedT2TP+CZ0eLByKXIpxDRBfj2Q=
 			</data>
 		</dict>
 		<key>Headers/TRTCStatistics.h</key>
@@ -81,11 +81,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ZYLIyBaYIY1ChJJ499DkgrMI+d4=
+			TVeyTqt5fxBFQ5RzDzDmp2a9lZA=
 			</data>
 			<key>hash2</key>
 			<data>
-			unGDa62MfVI2LOgaxjkwdR3kuD+eycTF3OXSLVhKN+0=
+			MIzBqwon+nbGU9RkkKSacyJXC4TlquRgvoBWcDu/C8w=
 			</data>
 		</dict>
 		<key>Headers/TXLiteAVSDK.h</key>
@@ -114,11 +114,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bF6lvk5T7jsulW9WWn1yvuRoL+0=
+			ghEBGcURu3f+4wolqxp8bRKnYV8=
 			</data>
 			<key>hash2</key>
 			<data>
-			c55Lzx0NMOESw1y/aXVrYPnyB7+APH1bM0y+YX6xS+E=
+			Mtnmi/fZv4EIjWWnqY642T877by3+QfQmri6nNnHP6I=
 			</data>
 		</dict>
 		<key>Headers/TXLivePlayConfig.h</key>
@@ -147,11 +147,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			dwIcpOf8YC/Qz0LUnKjFnIVogUc=
+			VV3gafweOJpBlUgWK9R7PFaiGXk=
 			</data>
 			<key>hash2</key>
 			<data>
-			FOC3JLitU8k5EFXj9DUahRNFsitXgkvTB1nfxl8HfW4=
+			RDnDNUQ4MOo9wieGTF/y8w2trNr7uKXy9PGLVpIQJzk=
 			</data>
 		</dict>
 		<key>Headers/TXLiveRecordListener.h</key>
@@ -224,11 +224,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LUyV80uSclGJb3qJyCfTrb7SYcc=
+			Baat3o8fR+YBrd08/jHvuyCwUsE=
 			</data>
 			<key>hash2</key>
 			<data>
-			NJC6JgXuAcm/I/bD2N5GIFz1kXCRV6QtEFkmqvPZhCY=
+			7uEg9azxaYAbfs+Qa+iZBqPxP1kimO4eEzHO9z9fNho=
 			</data>
 		</dict>
 	</dict>

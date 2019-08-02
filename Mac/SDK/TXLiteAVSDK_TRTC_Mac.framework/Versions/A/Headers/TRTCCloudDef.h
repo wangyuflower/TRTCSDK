@@ -50,8 +50,8 @@ typedef NS_ENUM(NSInteger, TRTCVideoResolution) {
     TRTCVideoResolution_960_720     = 64,   ///< [C] 建议码率1000kbps
     
     // 宽高比16:9
-    TRTCVideoResolution_160_90      = 100,  ///< [C]
-    TRTCVideoResolution_256_144     = 102,  ///< [C]
+    TRTCVideoResolution_160_90      = 100,  ///< [C] 建议码率100kbps
+    TRTCVideoResolution_256_144     = 102,  ///< [C] 建议码率150kbps
     TRTCVideoResolution_320_180     = 104,  ///< [C] 建议码率250kbps
     TRTCVideoResolution_480_270     = 106,  ///< [C] 建议码率350kbps
     TRTCVideoResolution_640_360     = 108,  ///< [C] 建议码率550kbps
@@ -216,7 +216,7 @@ typedef NS_ENUM(NSInteger, TRTCRoleType) {
  * TRTC SDK 内部需要时刻根据网络情况调整内部的编解码器和网络模块，以便能够对网络的变化做出反应。
  * 为了支持快速算法升级，SDK 内部设置了两种不同的流控模式：
  * - ModeClient： 本地控制，用于 SDK 开发内部调试，客户请勿使用。
- * - ModeServer： 云端控制，推荐模式，也是默认默认。
+ * - ModeServer： 云端控制，推荐模式，也是默认模式，推荐选择。
  *
  * @note 推荐您使用云端控制，这样每当我们升级 Qos 算法时，您无需升级 SDK 即可体验更好的效果。
  */
@@ -307,6 +307,7 @@ typedef NS_ENUM(NSInteger, TRTCVoiceChangerType) {
     TRTCVoiceChangerType_11  = 11,   ///< 空灵
 };
 
+#pragma mark -
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -518,7 +519,6 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 @property (assign, nonatomic) NSUInteger volume;
 @end
 
-
 #if TARGET_OS_MAC && !TARGET_OS_IPHONE
 #pragma mark -
 
@@ -596,7 +596,7 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 #pragma mark -
 
 /** 
- *  5.9 视频帧信息 
+ *  5.9 视频帧信息
  *
  *  TRTCVideoFrame 用来描述一帧视频画面的裸数据，它或者是一帧编码前的画面，或者是一帧解码后的画面。
  */
@@ -629,13 +629,12 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 @property (nonatomic, assign) uint32_t height;
 
 ///【字段含义】视频像素的顺时针旋转角度
-///【推荐取值】自定义视频采集时不需要填写。
-@property (nonatomic) TRTCVideoRotation rotation;
+@property (nonatomic, assign) TRTCVideoRotation rotation;
 @end
 
 
 /** 
- * 5.10 音频帧数据 
+ * 5.10 音频帧数据
  */
 #pragma mark -
 /// 音频帧数据
@@ -727,7 +726,7 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 #pragma mark -
 
 /** 
- * 5.13 CDN 旁路推流参数 
+ * 5.13 CDN 旁路推流参数
  */
 @interface TRTCPublishCDNParam : NSObject
 /// 腾讯云 AppID，请在 [实时音视频控制台](https://console.cloud.tencent.com/rav) 选择已经创建的应用，单击【帐号信息】后，在“直播信息”中获取
@@ -738,5 +737,17 @@ typedef NS_ENUM(NSInteger, TRTCTranscodingConfigMode) {
 
 /// 旁路转推的 URL
 @property (nonatomic, strong, nonnull) NSString * url;
+@end
+
+/**
+ * 5.14 录音参数
+ *
+ * 请正确填写参数，确保录音文件顺利生成。
+ */
+@interface TRTCAudioRecordingParams : NSObject
+
+///【字段含义】文件路径（必填），录音文件的保存路径。该路径需要用户自行指定，请确保路径存在且可写。
+///【特别说明】该路径需精确到文件名及格式后缀，格式后缀决定录制文件的格式，例如：指定路径为 path/to/audio.aac，则会生成一个 AAC 格式的文件。目前支持的格式有 PCM, WAV, AAC
+@property (nonatomic, strong, nonnull) NSString* filePath;
 @end
 
